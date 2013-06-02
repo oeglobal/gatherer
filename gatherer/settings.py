@@ -6,10 +6,13 @@
 #     http://doc.scrapy.org/topics/settings.html
 #
 
-BOT_NAME = 'gatherer'
+BOT_NAME = 'OCWC gatherer'
 
 SPIDER_MODULES = ['gatherer.spiders']
 NEWSPIDER_MODULE = 'gatherer.spiders'
 
+ITEM_PIPELINES = [
+	'gatherer.pipelines.JsonExportExternalIdPipeline',
+]
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'gatherer (+http://www.yourdomain.com)'
+USER_AGENT = 'OCWC gatherer (+https://github.com/ocwc/gatherer)'

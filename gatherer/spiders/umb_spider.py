@@ -6,6 +6,7 @@ from gatherer.items import CourseItem
 
 class UmbSpider(BaseSpider):
     name = "umb"
+    external_id = '693'
     allowed_domains = ["ocw.umb.edu"]
     start_urls = [
         "http://ocw.umb.edu/eduCommons/courselist",
@@ -54,15 +55,15 @@ class UmbSpider(BaseSpider):
             item['description'] = ''.join(hxs.select(".//*[@id='parent-fieldname-text']/p[1]/text()").extract())
         item['raw_text'] += ''.join(hxs.select(".//*[@id='parent-fieldname-text']//text()").extract())
 
-        print '--------------', len(item['subpage_urls'])
+        # print '--------------', len(item['subpage_urls'])
         if len(item['subpage_urls']):
             new_url = item['subpage_urls'].pop()
-            print 'xx', len(item['subpage_urls']), new_url
+            # print 'xx', len(item['subpage_urls']), new_url
             request = Request(url=new_url,
                                 callback=self.parse_course_subpage)
             request.meta['item'] = item
             yield request
         else:
-            print 'out!'
+            # print 'out!'
             yield item
         
