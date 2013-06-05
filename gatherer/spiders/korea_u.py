@@ -15,3 +15,7 @@ class KoreaUSpider(EduCommonsSpider):
     	"http://ocw.korea.edu/ocw/center-for-teaching-and-learning/workshop",
     	"http://ocw.korea.edu/ocw/center-for-teaching-and-learning/ae30cd08-d559bb38-bd84c57c-1"
     ]
+    course_description_phrases = [
+    	'Course Description',
+    	'Description of course'
+    ]

@@ -8,6 +8,7 @@ from gatherer.items import CourseItem
 class EduCommonsSpider(BaseSpider):
     external_id = None
     exclude_urls= []
+    course_description_phrases = ['Course Description']
 
     def parse(self, response):
         hxs = HtmlXPathSelector(response)
@@ -55,7 +56,14 @@ class EduCommonsSpider(BaseSpider):
         hxs = HtmlXPathSelector(response)
 
         if response.url.endswith('syllabus'):
-            item['description'] = ''.join(hxs.select(".//*[@id='parent-fieldname-text']/p[1]/text()").extract())
+            found_description = False
+            for course_description_phrase in self.course_description_phrases:
+                if not found_description and hxs.select("//text()[contains(.,'%s')]" % course_description_phrase):
+                    item['description'] = ''.join(hxs.select("//text()[contains(.,'%s')]/following::p[1]/text()" % course_description_phrase).extract())
+                    found_description = True
+
+            if not found_description:
+                item['description'] = ''.join(hxs.select(".//*[@id='parent-fieldname-text']/p[1]/text()").extract())
         item['raw_text'] += ''.join(hxs.select(".//*[@id='parent-fieldname-text']//text()").extract())
 
         if len(item['subpage_urls']):

@@ -8,3 +8,6 @@ class UmbSpider(EduCommonsSpider):
     start_urls = [
         "http://ocw.umb.edu/eduCommons/courselist",
     ]
+    course_description_phrases = [
+        'Course Description'
+    ]
