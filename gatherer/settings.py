@@ -14,5 +14,8 @@ NEWSPIDER_MODULE = 'gatherer.spiders'
 ITEM_PIPELINES = [
 	'gatherer.pipelines.JsonExportExternalIdPipeline',
 ]
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'OCWC gatherer (+https://github.com/ocwc/gatherer)'
+
+HTTPCACHE_ENABLED = True
