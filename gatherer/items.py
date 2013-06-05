@@ -15,6 +15,7 @@ class CourseItem(Item):
 	title = Field()
 	author = Field()
 	description = Field()
+	categories = Field()
 	raw_text = Field()
 	subpage_urls = Field()
 	

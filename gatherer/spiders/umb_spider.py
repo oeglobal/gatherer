@@ -37,6 +37,7 @@ class UmbSpider(BaseSpider):
         item['raw_text'] = ''
         hxs = HtmlXPathSelector(response)
         item['author'] = hxs.select(".//*[@id='aboutInfo']/p[1]/strong/text()").extract()
+        item['categories'] = hxs.select(".//*[@id='category']/.//*[@class='link-category']/text()").extract()
 
         subpage_urls = hxs.select(".//*[@class='portletItem']/a/@href").extract()
         item['subpage_urls'] = subpage_urls
@@ -55,15 +56,12 @@ class UmbSpider(BaseSpider):
             item['description'] = ''.join(hxs.select(".//*[@id='parent-fieldname-text']/p[1]/text()").extract())
         item['raw_text'] += ''.join(hxs.select(".//*[@id='parent-fieldname-text']//text()").extract())
 
-        # print '--------------', len(item['subpage_urls'])
         if len(item['subpage_urls']):
             new_url = item['subpage_urls'].pop()
-            # print 'xx', len(item['subpage_urls']), new_url
             request = Request(url=new_url,
                                 callback=self.parse_course_subpage)
             request.meta['item'] = item
             yield request
         else:
-            # print 'out!'
             yield item
         
