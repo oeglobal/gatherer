@@ -19,3 +19,4 @@ ITEM_PIPELINES = [
 USER_AGENT = 'OCWC gatherer (+https://github.com/ocwc/gatherer)'
 
 HTTPCACHE_ENABLED = True
+# HTTPCACHE_ENABLED = False

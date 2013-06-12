@@ -18,4 +18,5 @@ class CourseItem(Item):
 	categories = Field()
 	raw_text = Field()
 	subpage_urls = Field()
-	
+	date = Field()
+	image_src = Field()
